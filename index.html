@@ -166,7 +166,7 @@
   <div class="top-bar">
     <div class="button-group">
       <a href="https://www.sportwave.xyz/" class="tv-button">📺 Menu</a>
-      <a href="/sportwave/academy" class="slash-button">/ Academy</a>
+      <a href="/sportwave/" class="slash-button">/ Academy</a>
     </div>
     <img src="Sportwave Logo.png" alt="Sportwave Logo" class="logo">
   </div>
@@ -177,16 +177,21 @@
   <div class="cards" id="watchlist"></div>
 
   <script>
-    // Example games list
+    // Example games list (only real game URLs!)
     const games = [
       {id: 'game1', title: 'Team Alpha vs Team Beta', url: 'https://www.sportwave.xyz/game1'},
       {id: 'game2', title: 'Team Gamma vs Team Delta', url: 'https://www.sportwave.xyz/game2'},
       {id: 'game3', title: 'Team Epsilon vs Team Zeta', url: 'https://www.sportwave.xyz/game3'}
     ];
 
-    // Watchlist stored in localStorage
     const watchlistDiv = document.getElementById('watchlist');
-    const markedGames = JSON.parse(localStorage.getItem('markedGames') || '[]');
+
+    // Load marked games from localStorage
+    let markedGames = JSON.parse(localStorage.getItem('markedGames') || '[]');
+
+    // Clean any invalid entries (e.g., old Discord link)
+    markedGames = markedGames.filter(id => games.some(g => g.id === id));
+    localStorage.setItem('markedGames', JSON.stringify(markedGames));
 
     function renderWatchlist() {
       watchlistDiv.innerHTML = '';
@@ -199,7 +204,7 @@
         if(game) {
           const card = document.createElement('a');
           card.className = 'card';
-          card.href = game.url;
+          card.href = game.url; // Only links to game pages
           card.target = '_blank';
           card.innerHTML = `
             <img src="intro-back.png" alt="${game.title}">
