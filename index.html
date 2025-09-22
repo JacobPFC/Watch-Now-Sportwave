@@ -22,17 +22,15 @@
       gap: 10px;
     }
 
-    /* Button group (TV + Discord) */
+    /* Button group (TV + Academy) */
     .button-group {
       display: flex;
       gap: 10px;
       align-items: center;
     }
 
-    /* TV button */
-    .tv-button {
-      background: #ffeb3b;
-      color: #003366;
+    /* Buttons */
+    .tv-button, .slash-button {
       padding: 10px 14px;
       border-radius: 12px;
       font-weight: bold;
@@ -40,74 +38,35 @@
       box-shadow: 0 3px 6px rgba(0,0,0,0.3);
       transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
       position: relative;
+    }
+
+    .tv-button {
+      background: #ffeb3b;
+      color: #003366;
     }
     .tv-button:hover {
       transform: translateY(-2px) scale(1.03);
       background: #ffd600;
       box-shadow: 0 6px 16px rgba(0,0,0,0.4);
     }
-    .tv-button::after {
-      content: "Back to main menu";
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.8);
-      color: #fff;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-    }
-    .tv-button:hover::after {
-      opacity: 1;
-    }
 
-    /* Discord button */
-    .discord-button {
+    .slash-button {
       background: #7289DA; /* Discord blue */
       color: #fff;
-      padding: 10px 14px;
-      border-radius: 12px;
-      font-weight: bold;
-      text-decoration: none;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.3);
-      transition: transform 0.2s, background 0.2s, box-shadow 0.2s;
-      position: relative;
     }
-    .discord-button:hover {
+    .slash-button:hover {
       transform: translateY(-2px) scale(1.03);
       background: #5b6eae;
       box-shadow: 0 6px 16px rgba(0,0,0,0.4);
     }
-    .discord-button::after {
-      content: "Join our Discord";
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.8);
-      color: #fff;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 12px;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s;
-    }
-    .discord-button:hover::after {
-      opacity: 1;
-    }
 
+    /* Logo */
     .logo {
       width: 120px;
       height: auto;
     }
 
+    /* Headers */
     h1 {
       font-size: 36px;
       font-weight: bold;
@@ -120,7 +79,7 @@
       margin-bottom: 40px;
     }
 
-    /* Cards */
+    /* Watchlist cards */
     .cards {
       display: flex;
       justify-content: center;
@@ -163,7 +122,7 @@
       padding: 0 5px;
     }
 
-    /* MOBILE RESPONSIVE */
+    /* Mobile responsive */
     @media (max-width: 768px) {
       body {
         padding: 20px;
@@ -173,7 +132,7 @@
         gap: 15px;
       }
       .button-group {
-        flex-direction: row; /* still side by side on small screens if space allows */
+        flex-direction: row;
         gap: 10px;
       }
       .logo {
@@ -207,7 +166,7 @@
   <div class="top-bar">
     <div class="button-group">
       <a href="https://www.sportwave.xyz/" class="tv-button">📺 Menu</a>
-      <a href="https://discord.gg/XvBhu9a6aQ" class="discord-button" target="_blank">💬 Discord</a>
+      <a href="/sportwave/academy" class="slash-button">/ Academy</a>
     </div>
     <img src="Sportwave Logo.png" alt="Sportwave Logo" class="logo">
   </div>
@@ -218,12 +177,14 @@
   <div class="cards" id="watchlist"></div>
 
   <script>
+    // Example games list
     const games = [
       {id: 'game1', title: 'Team Alpha vs Team Beta', url: 'https://www.sportwave.xyz/game1'},
       {id: 'game2', title: 'Team Gamma vs Team Delta', url: 'https://www.sportwave.xyz/game2'},
       {id: 'game3', title: 'Team Epsilon vs Team Zeta', url: 'https://www.sportwave.xyz/game3'}
     ];
 
+    // Watchlist stored in localStorage
     const watchlistDiv = document.getElementById('watchlist');
     const markedGames = JSON.parse(localStorage.getItem('markedGames') || '[]');
 
